@@ -1,0 +1,3 @@
+build-osx
+*.dylib
+*.o
