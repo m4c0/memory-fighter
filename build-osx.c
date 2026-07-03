@@ -10,11 +10,12 @@ static int link_exe() {
     "-framework", "AudioToolbox",
     "-framework", "MetalKit",
     "-o", "memory-fighter.app/Contents/MacOS/memory-fighter", 
-    OBJS, "vulkan-osx.o");
+    OBJS); //, "vulkan-osx.o");
   return 0;
 }
 
 int main(int argc, char ** argv) {
+  mkdir("out", 0777);
   mkdir("memory-fighter.app", 0777);
   mkdir("memory-fighter.app/Contents", 0777);
   mkdir("memory-fighter.app/Contents/MacOS", 0777);

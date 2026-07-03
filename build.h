@@ -51,9 +51,29 @@ int run(char ** args) {
 
 #define SHADER(src, fld) RUN("glslang", "-V", src, "-o", fld "/" src ".spv")
 
-#define OBJS //"gme.o", "sfx.o", "snd.o", "snk.o", "tmr.o", "vulkan.o"
+#define ENGS \
+  ENG("gl_main")        \
+  ENG("gl_pick")        \
+  ENG("lg_main")        \
+  ENG("mp_friends")     \
+  ENG("mp_match")       \
+  ENG("mp_matches")     \
+  ENG("mp_player")      \
+  ENG("mp_status")      \
+  ENG("sc_base")        \
+  ENG("sc_curmatch")    \
+  ENG("sc_game")        \
+  ENG("sc_game_end")    \
+  ENG("sc_game_repeat") \
+  ENG("sc_load")        \
+  ENG("sc_main")        \
+  ENG("sc_menu")        \
+  ENG("sc_newmatch")    \
+  ENG("ui_main")        \
+
+#define ENG(x) CC("eng/"x".c", "out/"x".o", CFLAGS);
 static int compile_common() {
-  //CC("vulkan.c", "vulkan.o", CFLAGS);
+  ENGS
   //HDR("gme.h", "gme.o", CFLAGS, "-D", "GME_IMPLEMENTATION");
   //HDR("sfx.h", "sfx.o", CFLAGS, "-D", "SFX_IMPLEMENTATION");
   //HDR("snd.h", "snd.o", CFLAGS, "-D", "SND_IMPLEMENTATION");
@@ -61,11 +81,15 @@ static int compile_common() {
   //HDR("tmr.h", "tmr.o", CFLAGS, "-D", "TMR_IMPLEMENTATION");
   return 0;
 }
+#undef ENG
 
 static int shaders() {
   //SHADER("boav.frag", RES_PATH);
   //SHADER("boav.vert", RES_PATH);
   return 0;
 }
+
+#define ENG(x) "out/"x".o"
+#define OBJS ENGS
 
 #endif
